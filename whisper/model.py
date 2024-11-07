@@ -11,6 +11,7 @@ from torch import Tensor, nn
 
 from .decoding import decode as decode_function
 from .decoding import detect_language as detect_language_function
+from .embed import embed as embed_function
 from .transcribe import transcribe as transcribe_function
 
 try:
@@ -194,6 +195,7 @@ class AudioEncoder(nn.Module):
         x = F.gelu(self.conv2(x))
         x = x.permute(0, 2, 1)
 
+        print(self.positional_embedding.shape)
         assert x.shape[1:] == self.positional_embedding.shape, "incorrect audio shape"
         x = (x + self.positional_embedding).to(x.dtype)
 
@@ -343,3 +345,4 @@ class Whisper(nn.Module):
     detect_language = detect_language_function
     transcribe = transcribe_function
     decode = decode_function
+    embed = embed_function
