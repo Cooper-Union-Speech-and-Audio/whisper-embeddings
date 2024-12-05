@@ -128,11 +128,7 @@ def load_model(
     """
 
     if device is None:
-        try:
-            import torch_xla.core.xla_model as xm
-            device = xm.xla_device()
-        except ImportError:
-            device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = "cuda" if torch.cuda.is_available() else "cpu"
     if download_root is None:
         default = os.path.join(os.path.expanduser("~"), ".cache")
         download_root = os.path.join(os.getenv("XDG_CACHE_HOME", default), "whisper")
