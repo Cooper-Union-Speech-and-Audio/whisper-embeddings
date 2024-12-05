@@ -23,7 +23,6 @@ for folder in tqdm(os.listdir(audio_dir)):
         extraction["metadata"] = metadata[metadata["Record-ID"] == folder].iloc[0].to_dict()
         for test in ["CTD", "PFT", "SFT"]:
             audio_fp = os.path.join(audio_dir, folder, f"{folder}__{test}.wav")
-            embedding_fp = os.path.join(emb_dir, f"{folder}__{test}.pt")
 
             audio = whisper.load_audio(audio_fp)
             with torch.no_grad():
